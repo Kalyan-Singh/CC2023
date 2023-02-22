@@ -22,9 +22,9 @@ const Navbar = () => {
         </Box>
         <Box display={{ base: "none", md: "block" }}>
           <Flex alignItems="center">
-            <Button variant="ghost" mx={2} color="white">Home</Button>
-            <Button variant="ghost" mx={2} color="white">About</Button>
-            <Button variant="ghost" mx={2} color="white">Contact</Button>
+            <Button  variant="ghost" mx={2} _hover={{ color: "gray.500" }} color="white">Home</Button>
+            <Button variant="ghost" mx={2} _hover={{ color: "gray.500" }} color="white">About</Button>
+            <Button variant="ghost" mx={2} _hover={{ color: "gray.500" }} color="white">Contact</Button>
           </Flex>
         </Box>
       </Flex>
