@@ -12,7 +12,7 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box bg="gray.800" py={3} px={{ base: 4, md: 20 }}>
+    <Box bg="#131415" py={3} px={{ base: 4, md: 20 }}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <Box>
           <Text fontSize="3xl" fontWeight="bold" color="white">Logo</Text>
