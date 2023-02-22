@@ -25,6 +25,7 @@ const Navbar = () => {
             <Button  variant="ghost" mx={2} _hover={{ color: "gray.500" }} color="white">Home</Button>
             <Button variant="ghost" mx={2} _hover={{ color: "gray.500" }} color="white">About</Button>
             <Button variant="ghost" mx={2} _hover={{ color: "gray.500" }} color="white">Contact</Button>
+            <Button variant="ghost" mx={2} _hover={{ color: "gray.500" }} color="white">Connect Wallet</Button>
           </Flex>
         </Box>
       </Flex>
@@ -39,6 +40,7 @@ const Navbar = () => {
             <Button variant="ghost" my={2} onClick={onClose} _hover={{ color: "gray.500" }} color="white">Home</Button>
             <Button variant="ghost" my={2} onClick={onClose} _hover={{ color: "gray.500" }} color="white">About</Button>
             <Button variant="ghost" my={2} onClick={onClose} _hover={{ color: "gray.500" }} color="white">Contact</Button>
+            <Button variant="ghost" my={2} onClick={onClose} _hover={{ color: "gray.500" }} color="white">Connect Wallet</Button>
           </Flex>
         </Box>
       </motion.div>
