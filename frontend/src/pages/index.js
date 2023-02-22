@@ -1,10 +1,10 @@
-import { Heading } from '@chakra-ui/react'
+import Navbar from '@/components/Navbar'
 
 
 export default function Home() {
   return (
     <>
-      <Heading>Hello world</Heading>
+      <Navbar/>
     </>
   )
 }
