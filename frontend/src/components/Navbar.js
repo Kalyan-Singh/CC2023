@@ -36,9 +36,9 @@ const Navbar = () => {
       >
         <Box pb={2}>
           <Flex direction="column" alignItems="center">
-            <Button variant="ghost" my={2} onClick={onClose} color="white">Home</Button>
-            <Button variant="ghost" my={2} onClick={onClose} color="white">About</Button>
-            <Button variant="ghost" my={2} onClick={onClose} color="white">Contact</Button>
+            <Button variant="ghost" my={2} onClick={onClose} _hover={{ color: "gray.500" }} color="white">Home</Button>
+            <Button variant="ghost" my={2} onClick={onClose} _hover={{ color: "gray.500" }} color="white">About</Button>
+            <Button variant="ghost" my={2} onClick={onClose} _hover={{ color: "gray.500" }} color="white">Contact</Button>
           </Flex>
         </Box>
       </motion.div>
