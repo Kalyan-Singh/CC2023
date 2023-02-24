@@ -15,11 +15,16 @@
     "@emotion/styled": "^11.10.6",
     "@fontsource/roboto": "^4.5.8",
     "@next/font": "13.1.6",
+    "@rainbow-me/rainbowkit": "^0.11.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "ethers": "^5.7.2",
     "framer-motion": "^9.0.7",
+    "graphql": "^16.6.0",
     "next": "13.1.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "urql": "^3.0.3",
+    "wagmi": "^0.11.7"
   }
 }

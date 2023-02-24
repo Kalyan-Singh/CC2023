@@ -1,13 +1,15 @@
 import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
-import { Flex, Box, Heading, Text, Button, Image } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, Button, Image,Link } from "@chakra-ui/react";
 import Head from 'next/head';
+import NextLink from "next/link";
+
+
 
 
 export default function Home() {
   return (
     <>
-      <Navbar/>
       <Flex
       justifyContent="center"
       alignItems="center"
@@ -24,7 +26,7 @@ export default function Home() {
               This is the hero section of my website. Use this space to introduce yourself and your website to your visitors.
             </Text>
             <Button bg={'#FBAE30'} size="lg" textColor={'#F6F4F5'} _hover={{ color: "gray.500" }}>
-              Login
+              <Link as={NextLink}  _hover={{textDecoration:"none"}} href="/signup">Sign Up</Link>
             </Button>
           </Box>
           <Box display={{ sm: "none", md: "block" }} flexBasis={{ sm: "0%", md: "50%" }}>

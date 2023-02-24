@@ -3,6 +3,7 @@ import { Box, Flex, Text, Button, useDisclosure, Link } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const variants = {
   open: { opacity: 1, height: "auto" },
@@ -63,14 +64,8 @@ const Navbar = () => {
                 About
               </Link>
             </Button>
-            <Button
-              variant="ghost"
-              mx={2}
-              _hover={{ color: "gray.500" }}
-              color="#D67D05"
-            >
-              Connect Wallet
-            </Button>
+            <ConnectButton accountStatus="avatar" showBalance={false} />
+
           </Flex>
         </Box>
       </Flex>
@@ -89,7 +84,11 @@ const Navbar = () => {
               _hover={{ color: "gray.500" }}
               color="white"
             >
-              <Link as={NextLink} href="/explore" _hover={{textDecoration:"none"}}>
+              <Link
+                as={NextLink}
+                href="/explore"
+                _hover={{ textDecoration: "none" }}
+              >
                 Explore
               </Link>
             </Button>
@@ -108,15 +107,10 @@ const Navbar = () => {
                 About
               </Link>{" "}
             </Button>
-            <Button
-              variant="ghost"
-              my={2}
-              onClick={onClose}
-              _hover={{ color: "gray.500" }}
-              color="white"
-            >
-              Connect Wallet
-            </Button>
+
+            <ConnectButton
+              accountStatus="avatar"
+            />
           </Flex>
         </Box>
       </motion.div>
