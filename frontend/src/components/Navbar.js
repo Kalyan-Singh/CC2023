@@ -64,8 +64,10 @@ const Navbar = () => {
                 About
               </Link>
             </Button>
-            <ConnectButton accountStatus="avatar" showBalance={false} />
-
+            <ConnectButton
+              accountStatus="avatar"
+              showBalance={false}
+            ></ConnectButton>
           </Flex>
         </Box>
       </Flex>
@@ -108,9 +110,7 @@ const Navbar = () => {
               </Link>{" "}
             </Button>
 
-            <ConnectButton
-              accountStatus="avatar"
-            />
+            <ConnectButton accountStatus="avatar" />
           </Flex>
         </Box>
       </motion.div>

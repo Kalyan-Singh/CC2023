@@ -14,24 +14,26 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { extendTheme } from "@chakra-ui/react";
-import { createClient } from "urql";
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "@/apollo";
+import { AuthContextProvider } from "@/context/auth";
 
-const cclient = createClient({
-  url: "",
-  fetchOptions: () => {
-    const api=process.env.NEXT_PUBLIC_api;
-    const token= localStorage.getItem('jwt');
-    return {
-      headers: {
-        'X-API-KEY': `${api}`,
-        'authorization':  token ? token : "" },
-    };
-  },
-});
+// const cclient = urqlcreateClient({
+//   url: "https://api.cyberconnect.dev/testnet/playground",
+//   fetchOptions: () => {
+//     const api=process.env.NEXT_PUBLIC_api;
+//     const token= localStorage.getItem('jwt');
+//     return {
+//       headers: {
+//         'X-API-KEY': `${api}`,
+//         'authorization':  token ? token : "" },
+//     };
+//   },
+// });
 
-const graphClient = createClient({
-  url: "",
-});
+// const graphClient = urqlcreateClient({
+//   url: "https://api.thegraph.com/subgraphs/name/kalyan-singh/connectedtournaments",
+// });
 
 const theme = extendTheme({
   fonts: {
@@ -67,15 +69,20 @@ export default function App({ Component, pageProps }) {
     setReady(true);
   });
   return (
-    <ChakraProvider theme={theme}>
-      {ready ? (
-        <WagmiConfig client={wagmiClient}>
-          <RainbowKitProvider chains={chains} theme={darkTheme()}>
-            <Navbar />
-            <Component {...pageProps} />
-          </RainbowKitProvider>
-        </WagmiConfig>
-      ) : null}
-    </ChakraProvider>
+    <ApolloProvider client={apolloClient}>
+      <ChakraProvider theme={theme}>
+        {ready ? (
+          <WagmiConfig client={wagmiClient}>
+            <RainbowKitProvider chains={chains} theme={darkTheme()}>
+            <AuthContextProvider>
+              <Navbar />
+              <Component {...pageProps} />
+            </AuthContextProvider>
+
+            </RainbowKitProvider>
+          </WagmiConfig>
+        ) : null}
+      </ChakraProvider>
+    </ApolloProvider>
   );
 }
