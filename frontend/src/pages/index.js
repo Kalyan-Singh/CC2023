@@ -14,8 +14,7 @@ import CreateProfile from "./CreateProfile";
 import { NextLink } from "@apollo/client";
 
 export default function Home() {
-  const token = localStorage.getItem("accessToken");
-  const { profiles, primaryProfile } = useContext(AuthContext);
+  const { profiles, primaryProfile,accessToken } = useContext(AuthContext);
   return (
     <>
       <Flex
@@ -44,7 +43,7 @@ export default function Home() {
                 This is the hero section of my website. Use this space to
                 introduce yourself and your website to your visitors.
               </Text>
-              {token ? (
+              {accessToken ? (
                 primaryProfile ? (
                   // user has a profile
                   <Button

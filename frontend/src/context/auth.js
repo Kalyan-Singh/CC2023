@@ -1,8 +1,9 @@
-import {ACCOUNTS,PRIMARY_PROFILE,PRIMARY_PROFILE_ESSENCES} from "../graphql";
+import {ACCOUNTS,PRIMARY_PROFILE,PRIMARY_PROFILE_ESSENCES,GET_MY_DATA} from "../graphql";
 import { createContext,useState,useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useQuery } from "@apollo/client";
 import jwtDecode from "jwt-decode";
+import { subgraphClient } from "@/apollo";
 
 export const AuthContext = createContext(null);
 
@@ -15,6 +16,8 @@ export const AuthContextProvider =({children})=>{
     const [accessToken,setAccessToken]=useState(localStorage.getItem('accessToken'));
     const [profileCount,setProfileCount]=useState();
     const [profiles,setProfiles]=useState();
+    const [teams,setTeams]=useState();
+    const [tournaments,setTournaments]=useState();
 
     // checking the JWT
     if(accessToken){
@@ -55,6 +58,7 @@ export const AuthContextProvider =({children})=>{
 
 
 
+
       return (
         <AuthContext.Provider
           value={{
@@ -66,6 +70,10 @@ export const AuthContextProvider =({children})=>{
             setPrimaryProfile,
             setProfileCount,
             setProfiles,
+            teams,
+            setTeams,
+            tournaments,
+            setTournaments
           }}
         >
           {children}

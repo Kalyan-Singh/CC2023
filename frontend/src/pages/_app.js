@@ -15,7 +15,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { extendTheme } from "@chakra-ui/react";
 import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "@/apollo";
+import { apolloClient, subgraphClient } from "@/apollo";
 import { AuthContextProvider } from "@/context/auth";
 
 // const cclient = urqlcreateClient({
@@ -70,19 +70,18 @@ export default function App({ Component, pageProps }) {
   });
   return (
     <ApolloProvider client={apolloClient}>
-      <ChakraProvider theme={theme}>
-        {ready ? (
-          <WagmiConfig client={wagmiClient}>
-            <RainbowKitProvider chains={chains} theme={darkTheme()}>
-            <AuthContextProvider>
-              <Navbar />
-              <Component {...pageProps} />
-            </AuthContextProvider>
-
-            </RainbowKitProvider>
-          </WagmiConfig>
-        ) : null}
-      </ChakraProvider>
+        <ChakraProvider theme={theme}>
+          {ready ? (
+            <WagmiConfig client={wagmiClient}>
+              <RainbowKitProvider chains={chains} theme={darkTheme()}>
+                <AuthContextProvider>
+                  <Navbar />
+                  <Component {...pageProps} />
+                </AuthContextProvider>
+              </RainbowKitProvider>
+            </WagmiConfig>
+          ) : null}
+        </ChakraProvider>
     </ApolloProvider>
   );
 }

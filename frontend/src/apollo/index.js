@@ -17,7 +17,15 @@ const authLink = setContext((_, { headers }) => {
 	};
 });
 
+
+
 export const apolloClient = new ApolloClient({
 	link: authLink.concat(httpLink),
 	cache: new InMemoryCache(),
 });
+// const subgraphLink=createHttpLink("https://api.thegraph.com/subgraphs/name/kalyan-singh/connectedTournaments");
+
+export const subgraphClient= new ApolloClient({
+	uri:"https://api.thegraph.com/subgraphs/name/kalyan-singh/connectedtournaments",
+	cache:new InMemoryCache(),
+})

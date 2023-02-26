@@ -1,9 +1,23 @@
-import React from "react";
-import { Box, Flex, Text, Button, useDisclosure, Link } from "@chakra-ui/react";
+import React,{useContext} from "react";
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  useDisclosure,
+  Link,
+  Menu,
+  MenuButton,
+  Avatar,
+  MenuList,
+  MenuItem,
+} from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useDisconnect } from "wagmi";
+import { AuthContext } from "@/context/auth";
 
 const variants = {
   open: { opacity: 1, height: "auto" },
@@ -12,6 +26,13 @@ const variants = {
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { address,isConnected } = useAccount();
+  const {primaryProfile,setAccessToken,accessToken} =useContext(AuthContext);
+  const {disconnect}=useDisconnect();
+  const logoutHandler=()=>{
+    disconnect();
+    setAccessToken();
+  }
 
   return (
     <Box bg="#131415" py={0.5} px={{ base: 4, md: 20 }}>
@@ -64,10 +85,31 @@ const Navbar = () => {
                 About
               </Link>
             </Button>
-            <ConnectButton
-              accountStatus="avatar"
-              showBalance={false}
-            ></ConnectButton>
+            {primaryProfile && accessToken? (
+              <Menu matchWidth>
+                <MenuButton
+                  as={Avatar}
+                  size="md"
+                  name="John Doe"
+                  src={primaryProfile.avatar}
+                />
+                <MenuList bgColor='#161819' border='none'> 
+                  <MenuItem bgColor='#161819' textColor='#FBAE30'><Link
+                as={NextLink}
+                href="/MyTournaments"
+                _hover={{ textDecoration: "none" }}
+              >
+               My Tournaments
+              </Link></MenuItem>
+                  <MenuItem onClick={logoutHandler} bgColor='#161819' textColor='#FBAE30'>Log Out</MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <ConnectButton
+                accountStatus="avatar"
+                showBalance={false}
+              ></ConnectButton>
+            )}
           </Flex>
         </Box>
       </Flex>

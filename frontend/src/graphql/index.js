@@ -1,5 +1,33 @@
 import { gql } from "@apollo/client"
 
+
+export const GET_MY_DATA=gql`
+query($input:ID!){
+  players(where: {id:$input}) {
+    team{
+      
+      team{
+        name
+        members{
+          player{
+            id
+          }
+        }
+        tournaments{
+          tournament{
+            id
+            organizer
+            totalPrize
+          }
+        }
+      }
+    }
+  }
+}
+`
+
+
+
 export const LOGIN_GET_MESSAGE = gql`
     mutation LoginGetMessage($input: LoginGetMessageInput!) {
         loginGetMessage(input: $input) {
