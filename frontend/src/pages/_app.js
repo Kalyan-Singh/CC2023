@@ -73,7 +73,7 @@ export default function App({ Component, pageProps }) {
         <ChakraProvider theme={theme}>
           {ready ? (
             <WagmiConfig client={wagmiClient}>
-              <RainbowKitProvider chains={chains} theme={darkTheme()}>
+              <RainbowKitProvider coolMode chains={chains} theme={darkTheme()}>
                 <AuthContextProvider>
                   <Navbar />
                   <Component {...pageProps} />
