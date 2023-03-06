@@ -17,6 +17,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient, subgraphClient } from "@/apollo";
 import { AuthContextProvider } from "@/context/auth";
+import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/react';
 
 // const cclient = urqlcreateClient({
 //   url: "https://api.cyberconnect.dev/testnet/playground",
@@ -63,6 +64,10 @@ const wagmiClient = createClient({
   provider,
 });
 
+const livepeerClient = createReactClient({
+  provider: studioProvider({ apiKey: '2efafa70-fe2c-4bb2-90d1-27503c80ade4' }),
+});
+
 export default function App({ Component, pageProps }) {
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -75,8 +80,10 @@ export default function App({ Component, pageProps }) {
             <WagmiConfig client={wagmiClient}>
               <RainbowKitProvider coolMode chains={chains} theme={darkTheme()}>
                 <AuthContextProvider>
-                  <Navbar />
-                  <Component {...pageProps} />
+                  <LivepeerConfig client={livepeerClient}>
+                    <Navbar />
+                    <Component {...pageProps} />
+                  </LivepeerConfig>
                 </AuthContextProvider>
               </RainbowKitProvider>
             </WagmiConfig>
