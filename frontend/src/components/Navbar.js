@@ -27,7 +27,7 @@ const variants = {
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { address,isConnected } = useAccount();
-  const {primaryProfile,setAccessToken,accessToken} =useContext(AuthContext);
+  const {primaryProfile,setAccessToken,accessToken,explore} =useContext(AuthContext);
   const {disconnect}=useDisconnect();
   const logoutHandler=()=>{
     disconnect();
@@ -64,10 +64,10 @@ const Navbar = () => {
             >
               <Link
                 as={NextLink}
-                href="/explore"
+                href="/Find"
                 _hover={{ textDecoration: "none" }}
               >
-                Explore
+                Find
               </Link>
             </Button>
             <Button
@@ -130,10 +130,10 @@ const Navbar = () => {
             >
               <Link
                 as={NextLink}
-                href="/explore"
+                href="/Find"
                 _hover={{ textDecoration: "none" }}
               >
-                Explore
+                Find
               </Link>
             </Button>
             <Button

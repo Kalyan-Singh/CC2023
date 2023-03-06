@@ -141,3 +141,31 @@ export const RELAY_ACTION_STATUS = gql`
     }
   }
 `;
+
+export const EXPLORE_QUERY=gql`query{
+  profiles(first:100){
+    edges{
+      node{
+        profileID
+        handle
+        avatar
+        owner {
+          address
+        }
+      }
+    }
+  }
+}`
+
+export const getTournamentDetail=gql`
+query($input:BigInt!){
+  matches(where: {tournamentId: $input}){
+    id
+    tournamentId
+    round
+    n_team1
+    n_team2
+    winner
+  }
+}
+`

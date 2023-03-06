@@ -22,7 +22,6 @@ function SignupBtn({handle,avatar,name,bio,operator}) {
 
     const {data: signer}=useSigner();
     const { indexingProfiles, setIndexingProfiles,primaryProfile } =useContext(AuthContext);
-    console.log(primaryProfile);
     const [createProfileTypedData]=useMutation(CREATE_PROFILE_TYPED_DATA);
     const [relay]=useMutation(RELAY);
     const {address}=useAccount();

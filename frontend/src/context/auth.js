@@ -1,4 +1,4 @@
-import {ACCOUNTS,PRIMARY_PROFILE,PRIMARY_PROFILE_ESSENCES,GET_MY_DATA} from "../graphql";
+import {ACCOUNTS,PRIMARY_PROFILE,PRIMARY_PROFILE_ESSENCES,GET_MY_DATA,EXPLORE_QUERY} from "../graphql";
 import { createContext,useState,useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useQuery } from "@apollo/client";
@@ -18,6 +18,7 @@ export const AuthContextProvider =({children})=>{
     const [profiles,setProfiles]=useState();
     const [teams,setTeams]=useState();
     const [tournaments,setTournaments]=useState();
+    const [explore,setExplore]=useState();
 
     // checking the JWT
     if(accessToken){
@@ -56,6 +57,14 @@ export const AuthContextProvider =({children})=>{
       }
     });
 
+    // getting exploration profiles
+    const {data:exploreProfiles}=useQuery(EXPLORE_QUERY,{
+      onCompleted:(data)=>{
+        setExplore(data);
+      }
+    })
+
+
 
 
 
@@ -73,7 +82,9 @@ export const AuthContextProvider =({children})=>{
             teams,
             setTeams,
             tournaments,
-            setTournaments
+            setTournaments,
+            explore,
+            setExplore
           }}
         >
           {children}
