@@ -40,8 +40,9 @@ export default function Home() {
                 Compete. Connect. Earn!
               </Heading>
               <Text fontSize="xl" mb={8} color="white">
-                This is the hero section of my website. Use this space to
-                introduce yourself and your website to your visitors.
+                {/* This is the hero section of my website. Use this space to
+                introduce yourself and your website to your visitors. */}
+                A all in one solution to all your tournament organizing needs 
               </Text>
               {accessToken ? (
                 primaryProfile ? (

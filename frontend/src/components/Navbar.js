@@ -40,7 +40,9 @@ const Navbar = () => {
         <Box>
           <Text fontSize="3xl" fontWeight="bold" color="white">
             <Link as={NextLink} href="/" _hover={{ textDecoration: "none" }}>
-              LOGO
+              <Avatar name="LOGO" src="./logo.png">
+
+              </Avatar>
             </Link>
           </Text>
         </Box>
