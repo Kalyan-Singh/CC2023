@@ -76,6 +76,48 @@ const Navbar = () => {
               _hover={{ color: "gray.500" }}
               color="#D67D05"
             >
+              <Link
+                as={NextLink}
+                href="/tournaments"
+                _hover={{ textDecoration: "none" }}
+              >
+                Tournaments
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              mx={2}
+              _hover={{ color: "gray.500" }}
+              color="#D67D05"
+            >
+              <Link
+                as={NextLink}
+                href="/CreateTeam"
+                _hover={{ textDecoration: "none" }}
+              >
+                Create Team
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              mx={2}
+              _hover={{ color: "gray.500" }}
+              color="#D67D05"
+            >
+              <Link
+                as={NextLink}
+                href="/CreateTournament"
+                _hover={{ textDecoration: "none" }}
+              >
+                Create Tournament
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              mx={2}
+              _hover={{ color: "gray.500" }}
+              color="#D67D05"
+            >
               {" "}
               <Link
                 as={NextLink}
@@ -94,6 +136,20 @@ const Navbar = () => {
                   src={primaryProfile.avatar}
                 />
                 <MenuList bgColor='#161819' border='none'> 
+                <MenuItem bgColor='#161819' textColor='#FBAE30'><Link
+                as={NextLink}
+                href="/Register"
+                _hover={{ textDecoration: "none" }}
+              >
+               Register
+              </Link></MenuItem>
+              <MenuItem bgColor='#161819' textColor='#FBAE30'><Link
+                as={NextLink}
+                href="/Stream"
+                _hover={{ textDecoration: "none" }}
+              >
+                Stream
+              </Link></MenuItem>
                   <MenuItem bgColor='#161819' textColor='#FBAE30'><Link
                 as={NextLink}
                 href="/MyTournaments"
@@ -101,6 +157,7 @@ const Navbar = () => {
               >
                My Tournaments
               </Link></MenuItem>
+              
                   <MenuItem onClick={logoutHandler} bgColor='#161819' textColor='#FBAE30'>Log Out</MenuItem>
                 </MenuList>
               </Menu>

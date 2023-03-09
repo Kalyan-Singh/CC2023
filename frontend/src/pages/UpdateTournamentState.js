@@ -13,17 +13,17 @@ import {
   } from "@chakra-ui/react";
 
 
-function Rgister() {
+function UpdateTournamentState() {
 
-    const [teamId,setTeamId]=useState();
     const [tournamentId,setTournamentId]=useState();
+    const [round,setRound]=useState();
     const [clicked,setClicked]=useState(false);
 
     const {config,error}=usePrepareContractWrite({
         address:tournamentController,
         abi:abi_tournamentController,
-        functionName:'register',
-        args:[tournamentId,teamId]
+        functionName:'updateTournamentState',
+        args:[tournamentId,round]
     });
 
     const {write}=useContractWrite(config);
@@ -33,8 +33,8 @@ function Rgister() {
     }
 
     useEffect(()=>{
-      console.log(tournamentId,teamId)
-        if(write && tournamentId && teamId){
+      console.log(tournamentId)
+        if(write && tournamentId && round){
             write();
         }
     },[clicked])
@@ -50,7 +50,7 @@ function Rgister() {
       <Box p={6} borderWidth="2px" borderColor="#FBAE30">
         <Flex alignItems='center' justifyContent='center'>
           <Heading color="white" mb={6}>
-            Register
+            Update Tournament State
           </Heading>
         </Flex>
 
@@ -73,30 +73,30 @@ function Rgister() {
             color="white"
           />
         </InputGroup>
-
         <InputGroup mb={5}>
           <InputLeftAddon
-            children="Team Id"
+            children='Round Number'
             color="white"
             fontWeight="bold"
             textTransform="capitalize"
             bg='#FBAE30'
           />
           <Input
-            name="teamId"
+            name="roundNumber"
+            placeholder="Next Round"
             onChange={(e)=>{
-                setTeamId(parseInt(e.target.value));
+                setRound(parseInt(e.target.value));
             }}
-            placeholder="Team Id"
             bg="gray.700"
             borderColor="#FBAE30"
             color="white"
           />
         </InputGroup>
 
-        <Button onClick={handleOnClick}>Register</Button>
+
+        <Button onClick={handleOnClick}>Update</Button>
       </Box>
     </Flex>  )
 }
 
-export default Rgister
+export default UpdateTournamentState;

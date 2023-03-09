@@ -25,7 +25,8 @@ const MyTournaments = () => {
             const members = team.members.map(member => member.player);
             return {
               name: team.name,
-              members: members
+              members: members,
+              id:team.teamID
             };
           });
           const tournaments = response.data.players[0].team.reduce((tournaments, teamObj) => {
@@ -63,7 +64,7 @@ const MyTournaments = () => {
                 >
                   <Box bg="#161819" p="3">
                     <Heading size="sm" color="white">
-                      {team.name}
+                      {team.name + ": " + team.id}
                     </Heading>
                   </Box>
                   <Box p="3">

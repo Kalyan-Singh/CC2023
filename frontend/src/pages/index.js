@@ -55,7 +55,7 @@ export default function Home() {
                     <Link
                       as={NextLink}
                       _hover={{ textDecoration: "none" }}
-                      href="/explore"
+                      href="/tournaments"
                     >
                       Explore
                     </Link>

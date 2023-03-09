@@ -8,6 +8,7 @@ query($input:ID!){
       
       team{
         name
+        teamID
         members{
           player{
             id
@@ -167,5 +168,15 @@ query($input:BigInt!){
     n_team2
     winner
   }
+}
+`
+
+export const PROFILE_BY_HANDLE=gql`
+query($handle: String!){
+profileByHandle(handle:$handle){
+  owner{
+    address
+  }
+}
 }
 `

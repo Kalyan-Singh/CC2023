@@ -11,7 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { tournamentController,abi_tournamentController } from "@/helpers/Contracts";
 import { usePrepareContractWrite,useContractWrite } from "wagmi";
-
+import { PROFILE_BY_HANDLE } from "@/graphql";
+import { apolloClient } from "@/apollo";
 
 
 
@@ -44,17 +45,35 @@ function CreateTeam() {
 
 
 
-  const handleOnClick = () => {
+  const handleOnClick = async () => {
     console.log(members);
     console.log(teamName);
     console.log(leader);
-    const team={
-      name:teamName,
-      members:members,
-      leader:leader
+    let nMembers = [];
+    let nLeader;
+  
+    for (const member of members) {
+      const res = await apolloClient.query({
+        query: PROFILE_BY_HANDLE,
+        variables: {
+          handle: member,
+        },
+      });
+      console.log(res);
+      if (member == leader) nLeader=res.data.profileByHandle.owner.address;
+      nMembers.push(res.data.profileByHandle.owner.address);
     }
+  
+    setMembers(nMembers);
+  
+    const team = {
+      name: teamName,
+      members: nMembers, // use the updated array of member addresses
+      leader: nLeader,
+    };
     setTeamInput(team);
   };
+  
 
   return (
     <Flex
@@ -139,5 +158,4 @@ function CreateTeam() {
     </Flex>
   );
 }
-
 export default CreateTeam;
