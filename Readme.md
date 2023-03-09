@@ -16,7 +16,7 @@ Also our smart contracts are completely modular. Organizers and community can bu
     
 5.  Participants can connect with fellow like minded players using cyberconnect.
 
-![Methodology](https://drive.google.com/file/d/1ZE9joRNjWWLzhnFwyhqTdJxXs9gDPScu/view?usp=sharing)
+![Methodology](./frontend/public/methodology.png)
 ### Future Works
 1.  Adding More Match Making modules
     
