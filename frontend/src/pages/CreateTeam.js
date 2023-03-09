@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Heading,
@@ -9,31 +9,51 @@ import {
   Flex,
   Button
 } from "@chakra-ui/react";
+import { tournamentController,abi_tournamentController } from "@/helpers/Contracts";
+import { usePrepareContractWrite,useContractWrite } from "wagmi";
+
+
+
 
 function CreateTeam() {
-  const [teamInput, setTeamInput] = useState({
-    teamName: "",
-    memberAddresses: [],
-    leaderAddress: "",
+  const [teamInput, setTeamInput] = useState();
+  const [members,setMembers]=useState();
+  const [teamName,setTeamName]=useState();
+  const [leader,setLeader]=useState();
+
+
+
+  const {config,error}=usePrepareContractWrite({
+    address:tournamentController,
+    abi:abi_tournamentController,
+    functionName:'createTeam',
+    args:[teamInput]
   });
 
-  const handleOnChange = (event) => {
-    const name = event.target.name;
-    let value = event.target.value;
+  const {write}=useContractWrite(config);
 
-    // If the name is "memberAddresses", replace all whitespace with nothing
-    if (name === "memberAddresses") {
-      value = value.replace(/\s/g, "");
+
+  useEffect(()=>{
+    if(write && teamInput ){
+      write();
     }
+  },[teamInput]);
 
-    setTeamInput({
-      ...teamInput,
-      [name]: value,
-    });
-  };
+
+  
+
+
 
   const handleOnClick = () => {
-    console.log(teamInput);
+    console.log(members);
+    console.log(teamName);
+    console.log(leader);
+    const team={
+      name:teamName,
+      members:members,
+      leader:leader
+    }
+    setTeamInput(team);
   };
 
   return (
@@ -60,8 +80,9 @@ function CreateTeam() {
           />
           <Input
             name="teamName"
-            value={teamInput.teamName}
-            onChange={handleOnChange}
+            onChange={(e)=>{
+              setTeamName(e.target.value)
+            }}
             bg="gray.700"
             borderColor="#FBAE30"
             color="white"
@@ -78,8 +99,9 @@ function CreateTeam() {
           />
           <Input
             name="memberAddresses"
-            value={teamInput.memberAddresses}
-            onChange={handleOnChange}
+            onChange={(e)=>{
+              setMembers(e.target.value.split(','));
+            }}
             placeholder="0x...,0x..."
             bg="gray.700"
             borderColor="#FBAE30"
@@ -97,8 +119,9 @@ function CreateTeam() {
           />
           <Input
             name="leaderAddress"
-            value={teamInput.leaderAddress}
-            onChange={handleOnChange}
+            onChange={(e)=>{
+              setLeader(e.target.value);
+            }}
             placeholder="0x..."
             bg="gray.700"
             borderColor="#FBAE30"

@@ -159,7 +159,7 @@ export const EXPLORE_QUERY=gql`query{
 
 export const getTournamentDetail=gql`
 query($input:BigInt!){
-  matches(where: {tournamentId: $input}){
+  matches(where: {tournamentId: $input},orderBy: round){
     id
     tournamentId
     round

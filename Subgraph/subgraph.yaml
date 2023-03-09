@@ -1,0 +1,52 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: TournamentController
+    network: chapel
+    source:
+      address: "0x01f7654afB282C73C71210C132D209D3D6e20f90"
+      abi: TournamentController
+      startBlock: 27494670
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+      - playerTeam
+      - Player
+      - Team
+      abis:
+        - name: TournamentController
+          file: ./abis/TournamentController.json
+      eventHandlers:
+        - event: TeamCreated(uint256,address,address[])
+          handler: handleTeamCreated
+        - event: TournamentCreated(uint256,uint256,string,address,address)
+          handler: handleTournamentCreated
+        - event: Registered(uint256,uint256)
+          handler: handleRegistered
+      file: ./src/tournament-controller.ts
+  - kind: ethereum
+    name: MatchMakerSE
+    network: chapel
+    source:
+      address: "0x1513bFE8b145bC448056EcF585f2bd99D3436BB1"
+      abi: MatchMakerSE
+      startBlock: 27494681
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Match
+      abis:
+        - name: MatchMakerSE
+          file: ./abis/MatchMakerSE.json
+      eventHandlers:
+        - event: BracketUpdated(uint256,uint256,uint256,uint256)
+          handler: handleBracketUpdated
+        - event: MatchMade(uint256,uint256,uint256,uint256,uint256)
+          handler: handleMatchMade
+      file: ./src/match-maker-se.ts

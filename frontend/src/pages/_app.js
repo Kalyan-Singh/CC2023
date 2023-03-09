@@ -65,7 +65,7 @@ const wagmiClient = createClient({
 });
 
 const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: '2efafa70-fe2c-4bb2-90d1-27503c80ade4' }),
+  provider: studioProvider({ apiKey: '4dc128fe-0676-4a28-ba28-65a2c9a420d4' }),
 });
 
 export default function App({ Component, pageProps }) {

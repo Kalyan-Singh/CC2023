@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Heading,
@@ -9,33 +9,70 @@ import {
   Flex,
   Button
 } from "@chakra-ui/react";
+import { useAccount,usePrepareContractWrite,useContractWrite,useContract,useProvider,useSigner } from "wagmi";
+import { abi_tournamentController, matchMakerSe, tournamentController } from "@/helpers/Contracts";
+import { ethers } from "ethers";
+
 
 function CreateTournament() {
-  const [tournamentInput, setTournamentInput] = useState({
-    teamSizeLimit: "",
-    maximumParticipants: "",
-    matchMakerModule: "",
-    totalPrize: "",
-    prizeTokensAddress: "",
+  const [tournamentInput, setTournamentInput] = useState();
+  const [organizer,setOrganizer]=useState();
+  const [rewardToken,setRewardToken]=useState();
+  const [prizes,setPrizes]=useState();
+  const [teamSize,setTeamSize]=useState();
+  const [matchMakerModule,setMatchMakerModule]=useState(matchMakerSe);
+  const[maxParticipants,setMaxParticipants]=useState();
+  const{address}=useAccount();
+  const {data:signer}=useSigner();
+  const provider=useProvider();
+  const contract = useContract({
+    address:tournamentController,
+    abi:abi_tournamentController,
+    signerOrProvider:provider
   });
 
-  const handleOnChange = (event) => {
-    const name = event.target.name;
-    let value = event.target.value;
 
-    if (name === "teamSizeLimit" || name === "maximumParticipants" || name === "totalPrize") {
-      value = parseInt(value);
+  const {config,error}=usePrepareContractWrite({
+    address:tournamentController,
+    abi:abi_tournamentController,
+    functionName:'createTournament',
+    args:[tournamentInput],
+    overrides:{
+      from:address,
+      value:ethers.utils.parseEther('0'),
+    }
+  });
+
+  const {write}=useContractWrite(config);
+  useEffect(()=>{
+    console.log("in useEffect-",tournamentInput)
+    console.log(write);
+    console.log("error",error);
+    console.log(config)
+    if(write && tournamentInput){
+      write();
     }
 
-    setTournamentInput({
-      ...tournamentInput,
-      [name]: value,
-    });
-  };
+  },[tournamentInput,write]);
+
 
   const handleOnClick = () => {
-    console.log(tournamentInput);
+    let tournament={
+      round:0,
+      sizeLimit:teamSize,
+      maxParticipants:maxParticipants,
+      bracketType:ethers.utils.formatBytes32String("SE"),
+      matchMaker:matchMakerModule,
+      state:0,
+      org:organizer,
+      token:rewardToken,
+      prizes:prizes
+    }
+    console.log("in handleClick-",tournament);
+    setTournamentInput(tournament);
   };
+
+
 
   return (
     <Flex
@@ -53,6 +90,29 @@ function CreateTournament() {
 
         <InputGroup mb={5}>
           <InputLeftAddon
+            children="Organization Name"
+            color="white"
+            fontWeight="bold"
+            textTransform="capitalize"
+            bg="#FBAE30"
+          />
+          <Input
+            name="organizationName"
+            onChange={(e)=>{
+              let org={
+                name:e.target.value,
+                address:address
+              }
+              setOrganizer(org)
+            }}
+            bg="gray.700"
+            borderColor="#FBAE30"
+            color="white"
+          />
+        </InputGroup>
+
+        <InputGroup mb={5}>
+          <InputLeftAddon
             children="Team size limit"
             color="white"
             fontWeight="bold"
@@ -62,8 +122,9 @@ function CreateTournament() {
           <Input
             type="number"
             name="teamSizeLimit"
-            value={tournamentInput.teamSizeLimit}
-            onChange={handleOnChange}
+            onChange={(e)=>{
+              setTeamSize(parseInt(e.target.value))
+            }}
             bg="gray.700"
             borderColor="#FBAE30"
             color="white"
@@ -81,8 +142,9 @@ function CreateTournament() {
           <Input
             type="number"
             name="maximumParticipants"
-            value={tournamentInput.maximumParticipants}
-            onChange={handleOnChange}
+            onChange={(e)=>{
+              setMaxParticipants(parseInt(e.target.value))
+            }}
             bg="gray.700"
             borderColor="#FBAE30"
             color="white"
@@ -99,8 +161,11 @@ function CreateTournament() {
           />
           <Input
             name="matchMakerModule"
-            value={tournamentInput.matchMakerModule}
-            onChange={handleOnChange}
+            value={matchMakerSe}
+            onChange={(e)=>{
+              setMatchMakerModule(e.target.value);
+            }
+              }
             bg="gray.700"
             borderColor="#FBAE30"
             color="white"
@@ -118,8 +183,15 @@ function CreateTournament() {
           <Input
             type="number"
             name="totalPrize"
-            value={tournamentInput.totalPrize}
-            onChange={handleOnChange}
+            onChange={(e)=>{
+              let prize={
+                participantPool:parseInt(e.target.value),
+                viewerPool:0,
+                organizerFee:0,
+                totalPool:parseInt(e.target.value)
+              }
+              setPrizes(prize)
+            }}
             bg="gray.700"
             borderColor="#FBAE30"
             color="white"
@@ -136,19 +208,20 @@ function CreateTournament() {
           />
           <Input
             name="prizeTokensAddress"
-            value={tournamentInput.prizeTokensAddress}
-            onChange={handleOnChange}
+            onChange={(e)=>{
+              let token={
+                tokenAddress:e.target.value,
+                chain:"Chapel"
+              }
+              setRewardToken(token);
+            }}
+            
             placeholder="0x..."
             bg="gray.700"
             borderColor="#FBAE30"
             color="white"
           />
         </InputGroup>
-
-        <Text color="white" mb={4}>
-          <strong>Note:</strong> For empty fields we will randomly generate
-          values.
-        </Text>
 
         <Button onClick={handleOnClick}>Create Tournament</Button>
       </Box>

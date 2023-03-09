@@ -1,0 +1,64 @@
+type playerTeam @entity {
+  id: ID! # concatenation of player address + team id 
+  team: Team!
+  player: Player!
+}
+
+type Player @entity{
+  id:ID!
+  team: [playerTeam!]! @derivedFrom(field: "player")
+}
+
+type Team @entity {
+  id: ID!
+  teamID: BigInt!
+  leader:String!
+  name: String!
+  members: [playerTeam!]! @derivedFrom(field: "team")
+  tournaments: [participantTeam!] @derivedFrom(field: "team")
+}
+
+  type Tournament @entity{
+    id: ID!
+    organizer: String!
+    totalPrize: BigInt!
+    participantPrize: BigInt!
+    viewerPool: BigInt!
+    teamSizeLimit: Int!
+    maxParticipants: BigInt!
+    organizerAddress: String!
+    matchMakingModule:String!
+    teams: [participantTeam!] @derivedFrom(field: "tournament")
+  }
+
+
+
+  type participantTeam @entity{
+    id: ID!
+    team:Team!
+    tournament:Tournament!
+  }
+
+  type Match @entity{
+  id: ID!
+  tournamentId: BigInt!
+  team1:BigInt!
+  team2:BigInt!
+  round:BigInt!
+  winner:BigInt
+  n_team1:String!
+  n_team2:String!
+}
+
+
+type EpnsNotificationCounter @entity {
+  id: ID!
+  totalCount: BigInt!
+}
+
+type EpnsPushNotification @entity {
+  id: ID!
+  notificationNumber: BigInt!
+  recipient: String!
+  notification: String!
+} 
