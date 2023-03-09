@@ -8,7 +8,7 @@ Also our smart contracts are completely modular. Organizers and community can bu
 ### Problems We Solve
 1.  Our match making modules make matches in a provably random and fair way completely on chain.
     
-2.  No need to keep switching hosting platforms if our matchmaking module does not satisfy you, use another module, while still keeping your organization’s community intact and asking all your user to register again on another platform.
+2.  No need to keep switching hosting platforms if our matchmaking module does not satisfy you, use another module, while still keeping your organization’s community intact instead of asking all your user to register again on another platform.
     
 3.  Instant Payouts. Our escrow contract sends instant payout to the winners as soon as a tournament has concluded.
     
@@ -24,6 +24,9 @@ Also our smart contracts are completely modular. Organizers and community can bu
     
 3.  Integrating with notifi and xmtp.
 
-#### Explation for single Elimination Module's working
- [Single Elimnation Module](https://drive.google.com/file/d/1A24JDrMs7BouJ6-atgFIL1hB1jW5h724/view?usp=sharing)
-
+#### Explation for single Elimination Module's working And Contracts
+ [Single Elimnation Module](https://drive.google.com/file/d/1A24JDrMs7BouJ6-atgFIL1hB1jW5h724/view?usp=sharing) <br>
+ [Subgraph Endpoint](https://api.thegraph.com/subgraphs/name/kalyan-singh/connectedtournaments) <br>
+ [TournamentController Contract Deployment](https://testnet.bscscan.com/address/0x01f7654afB282C73C71210C132D209D3D6e20f90)<br>
+ [MatchMakerSE Contract Deploymen](https://testnet.bscscan.com/address/0x1513bFE8b145bC448056EcF585f2bd99D3436BB1)<br>
+ [Escrow Contract Deployment](https://testnet.bscscan.com/address/0x492eecd760258acd55f79f7e52174549a05255f6) <br>
